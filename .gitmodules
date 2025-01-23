@@ -1,0 +1,3 @@
+[submodule "example_modules/rtl8812au"]
+	path = example_modules/rtl8812au
+	url = git@github.com:aircrack-ng/rtl8812au.git
