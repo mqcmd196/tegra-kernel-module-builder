@@ -1,0 +1,20 @@
+name: x86_test
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    name: x86_test
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: build
+        run: docker build -t tegra-kernel-module-builder .
+      - name: test
+        run: docker run --rm -v $(pwd)/example_modules:/l4t/example_modules tegra-kernel-module-builder:latest /bin/bash -c "./prebuild_kernel_module.sh && cd example_modules/rtl8812au && make -j modules"
